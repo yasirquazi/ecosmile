@@ -41,12 +41,14 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
   ```ts
   eyebrow?: string
   heading: string
-  body: string            // single paragraph — keep to 2–4 sentences
-  imageSrc: string        // path relative to /public, e.g. '/images/foo.png'
+  headingColor?: 'ink' | 'forest'  // default: 'ink'
+  body: string | string[]          // single string or array for multiple paragraphs
+  imageSrc: string                 // path relative to /public, e.g. '/images/foo.png'
   imageAlt: string
+  imagePosition?: 'left' | 'right' // default: 'right' (text left, image right)
   background?: 'canvas' | 'card'   // default: 'canvas'
   ```
-- **Notes:** Image is locked to `aspect-ratio: 1/1` and uses `object-fit: cover`. On mobile (≤768px) the grid stacks — text first, image below at `4/3` ratio.
+- **Notes:** Image is locked to `aspect-ratio: 1/1` and uses `object-fit: cover`. `imagePosition='left'` flips the grid — image column becomes 40%, text becomes 60%, using CSS `order: -1` so DOM order stays logical. On mobile (≤768px) the grid always stacks — text first, image below at `4/3` ratio regardless of `imagePosition`.
 
 ---
 

@@ -212,7 +212,15 @@ const audienceCTA = {
     imageAlt="Household items ready to be donated"
   />
 
-  <EditorialSection {...solution} />
+  <SplitSection
+    heading={solution.heading}
+    headingColor={solution.headingColor}
+    body={solution.body}
+    imageSrc="/images/donation-pickup.png"
+    imageAlt="Sorted donation items ready for families"
+    imagePosition="left"
+    background="card"
+  />
   <ServiceGrid {...serviceGrid} />
   <HowItWorks {...howItWorks} />
   <TrustBlock {...trust} />

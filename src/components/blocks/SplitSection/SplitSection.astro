@@ -2,29 +2,39 @@
 interface Props {
   eyebrow?: string;
   heading: string;
-  body: string;
+  headingColor?: 'ink' | 'forest';
+  body: string | string[];
   imageSrc: string;
   imageAlt: string;
+  imagePosition?: 'left' | 'right';
   background?: 'canvas' | 'card';
 }
 
 const {
   eyebrow,
   heading,
+  headingColor = 'ink',
   body,
   imageSrc,
   imageAlt,
+  imagePosition = 'right',
   background = 'canvas',
 } = Astro.props;
+
+const paragraphs = Array.isArray(body) ? body : [body];
 ---
 
 <section class:list={["split", { "split--card": background === 'card' }]}>
   <div class="container-es">
-    <div class="split-grid">
+    <div class:list={["split-grid", { "split-grid--image-left": imagePosition === 'left' }]}>
       <div class="split-text">
         {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-        <h2 class="split-heading">{heading}</h2>
-        <p class="split-body">{body}</p>
+        <h2 class:list={["split-heading", { "split-heading--forest": headingColor === 'forest' }]}>
+          {heading}
+        </h2>
+        <div class="split-body">
+          {paragraphs.map(p => <p>{p}</p>)}
+        </div>
       </div>
       <div class="split-img">
         <img src={imageSrc} alt={imageAlt} />
@@ -42,11 +52,21 @@ const {
     background-color: var(--color-card);
   }
 
+  /* Default: text(3fr) left | image(2fr) right */
   .split-grid {
     display: grid;
     grid-template-columns: 3fr 2fr;
     column-gap: clamp(3rem, 5vw, 5rem);
     align-items: center;
+  }
+
+  /* Flipped: image(2fr) left | text(3fr) right */
+  .split-grid--image-left {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  .split-grid--image-left .split-img {
+    order: -1;
   }
 
   .split-text {
@@ -65,7 +85,17 @@ const {
     color: var(--color-ink);
   }
 
+  .split-heading--forest {
+    color: var(--color-forest);
+  }
+
   .split-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .split-body p {
     font-size: 1rem;
     line-height: 1.8;
     color: var(--color-ink-soft);
@@ -85,12 +115,19 @@ const {
   }
 
   @media (max-width: 768px) {
-    .split-grid {
+    .split-grid,
+    .split-grid--image-left {
       grid-template-columns: 1fr;
     }
+
+    .split-grid--image-left .split-img {
+      order: 0;
+    }
+
     .split-img {
       padding: 0 0 3rem;
     }
+
     .split-img img {
       aspect-ratio: 4 / 3;
     }
