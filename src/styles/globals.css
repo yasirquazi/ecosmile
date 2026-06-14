@@ -25,7 +25,8 @@
   /* ── Spacing Tokens ── */
   --container-pad:   clamp(1.25rem, 5vw, 2.5rem);  /* side gutters */
   --section-pad-y:   clamp(5rem, 10vw, 8rem);       /* top/bottom of each section */
-  --radius:          8px;                            /* buttons, cards */
+  --radius:          8px;                            /* cards, small UI */
+  --radius-pill:     9999px;                         /* CTA buttons — fully rounded */
 }
 
 /* ── Base Styles ── */

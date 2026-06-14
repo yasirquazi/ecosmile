@@ -47,8 +47,9 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
 
 <style>
   .hero {
+    background-color: var(--color-forest);
     padding-top: var(--section-pad-y);
-    padding-bottom: 0;
+    padding-bottom: var(--section-pad-y);
   }
 
   /* ── Grid ── */
@@ -72,7 +73,7 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
     font-weight: 500;
     line-height: 1.05;
     letter-spacing: -0.02em;
-    color: var(--color-ink);
+    color: var(--color-canvas);
     font-variation-settings: 'opsz' 80;
     margin-bottom: 1.5rem;
   }
@@ -80,7 +81,7 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
   .hero-sub {
     font-size: 1.25rem;
     line-height: 1.7;
-    color: var(--color-ink-soft);
+    color: var(--color-rule-soft);
     max-width: 52ch;
     margin-bottom: 2.5rem;
   }
@@ -97,18 +98,18 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
     display: inline-block;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--color-canvas);
-    background-color: var(--color-forest);
+    color: var(--color-forest);
+    background-color: var(--color-canvas);
     text-decoration: none;
-    padding: 0.875rem 1.875rem;
-    border-radius: var(--radius);
+    padding: 1rem 2rem;
+    border-radius: var(--radius-pill);
     transition: background-color 180ms ease;
   }
-  .hero-cta:hover { background-color: var(--color-mid); }
+  .hero-cta:hover { background-color: var(--color-card); }
 
   .risk-note {
     font-size: 0.75rem;
-    color: var(--color-ink-soft);
+    color: var(--color-rule);
     letter-spacing: 0.01em;
   }
 
@@ -116,8 +117,8 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
   .img-placeholder {
     width: 100%;
     aspect-ratio: 4 / 3;
-    background-color: var(--color-card);
-    border: 1px dashed var(--color-rule);
+    background-color: var(--color-mid);
+    border: 1px dashed var(--color-rule-soft);
     border-radius: calc(var(--radius) * 2);
     display: flex;
     flex-direction: column;
@@ -133,20 +134,20 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
     font-weight: 600;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: var(--color-ink-soft);
+    color: var(--color-canvas);
   }
 
   .img-hint {
     font-size: 0.75rem;
-    color: var(--color-rule);
+    color: var(--color-rule-soft);
     max-width: 22ch;
   }
 
   /* ── Trust bar ── */
   .trust-bar {
-    margin-top: 4rem;
-    padding: 1.125rem 0;
-    border-top: 1px solid var(--color-rule);
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-mid);
   }
 
   .trust-text {
@@ -154,6 +155,6 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--color-forest);
+    color: var(--color-canvas);
   }
 </style>
