@@ -7,8 +7,8 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
 | Block | File | Used on |
 |---|---|---|
 | `Hero` | `blocks/Hero/Hero.astro` | Home — Section 1 |
-| `SplitSection` | `blocks/SplitSection/SplitSection.astro` | Home — Section 2; reusable for any text + image split |
-| `EditorialSection` | `blocks/EditorialSection/EditorialSection.astro` | Home — Sections 3; reusable for any large-body text section |
+| `SplitSection` | `blocks/SplitSection/SplitSection.astro` | Home — Sections 2 & 3; reusable for any text + image split |
+| `EditorialSection` | `blocks/EditorialSection/EditorialSection.astro` | Available; reusable for any large-body text section |
 | `ServiceGrid` | `blocks/ServiceGrid/ServiceGrid.astro` | Home — Section 4 |
 | `HowItWorks` | `blocks/HowItWorks/HowItWorks.astro` | Home — Section 5 |
 | `TrustBlock` | `blocks/TrustBlock/TrustBlock.astro` | Home — Section 6 |
@@ -20,7 +20,7 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
 ## Block-by-block
 
 ### `Hero`
-- **Purpose:** Full-viewport opening section. Background image with dark gradient scrim; headline + sub + CTA centred at the bottom. Nav is transparent over this section and gains its canvas background on scroll (handled by IntersectionObserver in `Layout.astro`).
+- **Purpose:** Full-viewport opening section. Full-bleed background image with a dark gradient scrim; headline + sub + CTA vertically and horizontally centred in the viewport.
 - **Hydration:** none (static)
 - **Props:**
   ```ts
@@ -30,12 +30,12 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
   ```
 - **Background image:** swap `/public/images/hero-bg.png` — component always reads from that path.
 - **Gradient scrim:** two-stop overlay (`--scrim-mid` → `--scrim-dark`) defined in `globals.css`. Adjust there to tune contrast.
-- **Notes:** Uses `min-height: 100svh` (small viewport height unit — handles mobile browser chrome). Content sits at the bottom via `justify-content: flex-end` on the section flex container.
+- **Notes:** Uses `min-height: 100svh` (small viewport height unit — handles mobile browser chrome). Content is centred via `justify-content: center` on the section flex container. The floating nav sits above the hero in fixed position — no transparency logic needed on the hero itself.
 
 ---
 
 ### `SplitSection`
-- **Purpose:** Two-column section with text on the left (60%) and a square image on the right (40%). Use when a section needs a strong visual alongside its copy — problem statements, testimonials, feature callouts.
+- **Purpose:** Two-column section — text one side, square image the other. Use for problem/solution statements, testimonials, feature callouts.
 - **Hydration:** none
 - **Props:**
   ```ts
@@ -48,12 +48,12 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
   imagePosition?: 'left' | 'right' // default: 'right' (text left, image right)
   background?: 'canvas' | 'card'   // default: 'canvas'
   ```
-- **Notes:** Image is locked to `aspect-ratio: 1/1` and uses `object-fit: cover`. `imagePosition='left'` flips the grid — image column becomes 40%, text becomes 60%, using CSS `order: -1` so DOM order stays logical. On mobile (≤768px) the grid always stacks — text first, image below at `4/3` ratio regardless of `imagePosition`.
+- **Notes:** Default layout: text 60% left, image 40% right (`3fr 2fr`). `imagePosition='left'` swaps to `2fr 3fr` and uses CSS `order: -1` so DOM order stays logical. Image locked to `aspect-ratio: 1/1` with `object-fit: cover`. On mobile (≤768px) the grid always stacks — text first, image below at `4/3` ratio regardless of `imagePosition`.
 
 ---
 
 ### `EditorialSection`
-- **Purpose:** Long-form text section with a strong heading and one or two body paragraphs. Used for Problem (Section 2) and Solution (Section 3). Optionally right-aligned or centred.
+- **Purpose:** Long-form text section with a strong heading and one or two body paragraphs. Optionally right-aligned or centred.
 - **Hydration:** none
 - **Props:**
   ```ts
@@ -66,7 +66,7 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
 ---
 
 ### `ServiceGrid`
-- **Purpose:** 4-column card grid for services. Each card has a colour-block header (auto-assigned per nth-child), title, body, and a "For" pill row with a model line below.
+- **Purpose:** 2×2 card grid showcasing services. Each card has an inset image (or colour block fallback) on top, title, body copy, and audience pills at the bottom.
 - **Hydration:** none
 - **Props:**
   ```ts
@@ -75,11 +75,18 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
   services: Array<{
     title: string
     body: string
-    audience: string[]   // each item becomes a pill under the "For" label
-    model: string        // rendered as small soft text below the pills
+    audience: string[]  // each item becomes a pill under the "For" label
+    imageSrc?: string   // optional — if omitted, colour block shows instead
   }>
   ```
-- **Notes:** Card top colours cycle through `--color-forest → --color-mid → --color-earth → --color-gold` via nth-child — no colour prop needed. Grid collapses to 2 cols at ≤1023px and 1 col at ≤639px.
+- **Card anatomy:**
+  - Outer card: `--color-surface` bg (#FCFDFC), `--color-border` border (#CACFCA), `border-radius: 24px`
+  - Top area: `8px` inset padding wrapping the image or colour block; image/block has `border-radius: 20px`
+  - Image: `object-fit: cover`, `min-height: 280px` at desktop, `180px` on mobile
+  - Colour block fallback: cycles forest → mid → earth → gold via `nth-child` — no prop needed
+  - Footer: "For" label (16px, ink-soft) + filled forest-green pills (12px, white text)
+- **Grid:** 2 columns at ≥640px (2×2 with 4 cards), 1 column on mobile. Cards in the same row align to the tallest card via CSS grid stretch.
+- **Adding images:** Pass `imageSrc: '/images/your-file.png'` on any service. Cards without `imageSrc` automatically show their nth-child colour block.
 
 ---
 
@@ -146,12 +153,31 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
 
 ---
 
+## Layout pattern — Floating Nav (`Layout.astro`)
+
+The site nav is a **floating pill** rendered in `src/layouts/Layout.astro`. It is not a block component — it wraps every page automatically.
+
+**Behaviour:**
+- `position: fixed; top: 1.25rem` — floats 20px from the top of the viewport at all times
+- `max-width: 760px; margin: 0 auto` — centered horizontally, never stretches full-width
+- `border-radius: var(--radius-pill)` — fully rounded pill shape
+- Frosted glass: `backdrop-filter: blur(12px)` + `color-mix(in srgb, var(--color-canvas) 90%, transparent)` background
+- Border: `1px solid var(--color-border)` (#CACFCA — neutral grey, not the green rule tokens)
+- No transparency states, no IntersectionObserver — the pill always looks the same regardless of scroll position
+
+**Layout:** Wordmark left · Nav links centre · CTA button right
+
+**Mobile (≤640px):** pill stretches `left: 1rem; right: 1rem` (full-bleed with margins); nav links hidden.
+
+**To update nav links:** edit the `<ul class="nav-links">` list directly in `Layout.astro`. The CTA always points to the WhatsApp number defined inline — update `href` there.
+
+---
+
 ## UI Primitives (used inside blocks)
 
 | Primitive | Purpose |
 |---|---|
 | `EyebrowLabel` | Small uppercase label above section headings. DM Sans, tracked, forest green. |
-| `Badge` | Inline tag — PRIMARY (forest green) or SECONDARY (earth brown). |
 | `LinkArrow` | Text link with trailing →. Hover: turns forest green, arrow moves right. |
 
 ---

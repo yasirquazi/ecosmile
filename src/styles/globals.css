@@ -19,6 +19,8 @@
   --color-ink-soft:  #6B6B6B;  /* secondary text — captions, labels */
   --color-earth:     #5C3D1E;  /* earth brown — depth, used sparingly */
   --color-gold:      #C8972B;  /* antique gold — the ONE precious accent */
+  --color-surface:   #FCFDFC;  /* near-white surface — service cards */
+  --color-border:    #CACFCA;  /* neutral grey border — cards */
   --color-rule:      #C5D9C5;  /* section divider hairlines */
   --color-rule-soft: #DAEADA;  /* hairlines inside cards */
 
