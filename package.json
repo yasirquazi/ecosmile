@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "npm run check:type && astro build",
+    "preview": "astro preview",
+    "check:type": "node scripts/check-typography.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.0",

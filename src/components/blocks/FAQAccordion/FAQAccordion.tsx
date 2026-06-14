@@ -74,7 +74,7 @@ export default function FAQAccordion({ eyebrow, heading, items }: Props) {
                   borderRadius: '50%',
                   border: '1px solid var(--color-rule)',
                   flexShrink: 0,
-                  fontSize: '1.125rem',
+                  fontSize: '1.25rem',
                   lineHeight: 1,
                   color: 'var(--color-forest)',
                   transition: 'border-color 180ms ease',
