@@ -75,6 +75,7 @@ Gold is precious. It appears only as: (a) a deliberate emphasis on a key stat or
 | `--container-pad` | `clamp(1.25rem, 5vw, 2.5rem)` | Side gutters inside `.container-es` |
 | `--section-pad-y` | `clamp(5rem, 10vw, 8rem)` | Top/bottom of each major section |
 | `--radius` | `8px` | Small UI elements |
+| `--radius-card` | `24px` | All cards and images — use this for every card wrapper and standalone image |
 | `--radius-pill` | `9999px` | CTA buttons, nav pill, audience pills — fully rounded |
 
 **Vertical rhythm:** sections are separated by `--section-pad-y`. Section dividers (1px `--color-rule` hairlines) are used sparingly — one rule per boundary maximum.

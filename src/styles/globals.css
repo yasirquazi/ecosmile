@@ -27,7 +27,8 @@
   /* ── Spacing Tokens ── */
   --container-pad:   clamp(1.25rem, 5vw, 2.5rem);  /* side gutters */
   --section-pad-y:   clamp(5rem, 10vw, 8rem);       /* top/bottom of each section */
-  --radius:          8px;                            /* cards, small UI */
+  --radius:          8px;                            /* small UI elements */
+  --radius-card:     24px;                           /* cards and images — use this for all card/image corners */
   --radius-pill:     9999px;                         /* CTA buttons — fully rounded */
   --scrim-mid:       rgba(10, 20, 10, 0.60);         /* hero gradient mid-stop */
   --scrim-dark:      rgba(10, 20, 10, 0.78);         /* hero gradient bottom */

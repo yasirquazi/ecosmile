@@ -48,7 +48,7 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
   imagePosition?: 'left' | 'right' // default: 'right' (text left, image right)
   background?: 'canvas' | 'card'   // default: 'canvas'
   ```
-- **Notes:** Default layout: text 60% left, image 40% right (`3fr 2fr`). `imagePosition='left'` swaps to `2fr 3fr` and uses CSS `order: -1` so DOM order stays logical. Image locked to `aspect-ratio: 1/1` with `object-fit: cover`. On mobile (≤768px) the grid always stacks — text first, image below at `4/3` ratio regardless of `imagePosition`.
+- **Notes:** Image uses `border-radius: var(--radius-card)` (24px) — use this token on all future images and cards. Default layout: text 60% left, image 40% right (`3fr 2fr`). `imagePosition='left'` swaps to `2fr 3fr` and uses CSS `order: -1` so DOM order stays logical. Image locked to `aspect-ratio: 1/1` with `object-fit: cover`. On mobile (≤768px) the grid always stacks — text first, image below at `4/3` ratio regardless of `imagePosition`.
 
 ---
 
