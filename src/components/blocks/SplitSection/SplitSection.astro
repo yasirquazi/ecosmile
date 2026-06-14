@@ -1,0 +1,98 @@
+---
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  body: string;
+  imageSrc: string;
+  imageAlt: string;
+  background?: 'canvas' | 'card';
+}
+
+const {
+  eyebrow,
+  heading,
+  body,
+  imageSrc,
+  imageAlt,
+  background = 'canvas',
+} = Astro.props;
+---
+
+<section class:list={["split", { "split--card": background === 'card' }]}>
+  <div class="container-es">
+    <div class="split-grid">
+      <div class="split-text">
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        <h2 class="split-heading">{heading}</h2>
+        <p class="split-body">{body}</p>
+      </div>
+      <div class="split-img">
+        <img src={imageSrc} alt={imageAlt} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .split {
+    background-color: var(--color-canvas);
+  }
+
+  .split--card {
+    background-color: var(--color-card);
+  }
+
+  .split-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    column-gap: clamp(3rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  .split-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
+  }
+
+  .split-heading {
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.016em;
+    color: var(--color-ink);
+  }
+
+  .split-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-ink-soft);
+    max-width: 58ch;
+  }
+
+  .split-img {
+    padding: 2rem 0;
+  }
+
+  .split-img img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .split-grid {
+      grid-template-columns: 1fr;
+    }
+    .split-img {
+      padding: 0 0 3rem;
+    }
+    .split-img img {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

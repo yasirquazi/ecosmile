@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Hero from '@/components/blocks/Hero/Hero.astro';
+import SplitSection from '@/components/blocks/SplitSection/SplitSection.astro';
 import EditorialSection from '@/components/blocks/EditorialSection/EditorialSection.astro';
 import ServiceGrid from '@/components/blocks/ServiceGrid/ServiceGrid.astro';
 import HowItWorks from '@/components/blocks/HowItWorks/HowItWorks.astro';
@@ -27,12 +28,7 @@ const hero = {
 // ─────────────────────────────────────────
 const problem = {
   heading: 'Most people want to donate. They just assume it\'s complicated.',
-  body: [
-    'Bangalore generates over 4,500 tonnes of waste every day. A lot of it is perfectly usable — clothes the kids outgrew, furniture from the last flat, kitchen items you\'ve been meaning to pass on for two years.',
-    'But donation drives feel like effort. Drop-off points are out of the way. NGOs have forms. Nobody has time.',
-    'So things sit. And eventually get thrown out.',
-    'Eco Smile was built to remove that friction entirely.',
-  ],
+  body: 'Bangalore generates 4,500 tonnes of waste every day — much of it perfectly usable clothes, furniture, and household items people have been meaning to pass on. But donation drives feel like effort, drop-off points are out of the way, NGOs have forms, and nobody has time. So things sit, and eventually get thrown out. Eco Smile was built to remove that friction entirely.',
 };
 
 // ─────────────────────────────────────────
@@ -209,7 +205,15 @@ const audienceCTA = {
   description="Eco Smile picks up your unused items from your door and gets them to Bangalore families who need them. Free pickup. No forms. WhatsApp us today."
 >
   <Hero {...hero} />
-  <EditorialSection {...problem} />
+
+  <SplitSection
+    eyebrow="The Problem"
+    heading={problem.heading}
+    body={problem.body}
+    imageSrc="/images/donation-pickup.png"
+    imageAlt="Household items ready to be donated"
+  />
+
   <EditorialSection {...solution} />
   <ServiceGrid {...serviceGrid} />
   <HowItWorks {...howItWorks} />

@@ -21,7 +21,6 @@ export default function FAQAccordion({ eyebrow, heading, items }: Props) {
       paddingTop: 'var(--section-pad-y)',
       paddingBottom: 'var(--section-pad-y)',
       backgroundColor: 'var(--color-card)',
-      borderTop: '1px solid var(--color-rule)',
     }}>
       <div className="container-es">
         {eyebrow && (

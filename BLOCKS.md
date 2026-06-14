@@ -7,7 +7,8 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
 | Block | File | Used on |
 |---|---|---|
 | `Hero` | `blocks/Hero/Hero.astro` | Home — Section 1 |
-| `EditorialSection` | `blocks/EditorialSection/EditorialSection.astro` | Home — Sections 2 & 3; reusable for any large-body text section |
+| `SplitSection` | `blocks/SplitSection/SplitSection.astro` | Home — Section 2; reusable for any text + image split |
+| `EditorialSection` | `blocks/EditorialSection/EditorialSection.astro` | Home — Sections 3; reusable for any large-body text section |
 | `ServiceGrid` | `blocks/ServiceGrid/ServiceGrid.astro` | Home — Section 4 |
 | `HowItWorks` | `blocks/HowItWorks/HowItWorks.astro` | Home — Section 5 |
 | `TrustBlock` | `blocks/TrustBlock/TrustBlock.astro` | Home — Section 6 |
@@ -29,6 +30,22 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
   riskNote: string
   trustBar: string
   ```
+
+---
+
+### `SplitSection`
+- **Purpose:** Two-column section with text on the left (60%) and a square image on the right (40%). Use when a section needs a strong visual alongside its copy — problem statements, testimonials, feature callouts.
+- **Hydration:** none
+- **Props:**
+  ```ts
+  eyebrow?: string
+  heading: string
+  body: string            // single paragraph — keep to 2–4 sentences
+  imageSrc: string        // path relative to /public, e.g. '/images/foo.png'
+  imageAlt: string
+  background?: 'canvas' | 'card'   // default: 'canvas'
+  ```
+- **Notes:** Image is locked to `aspect-ratio: 1/1` and uses `object-fit: cover`. On mobile (≤768px) the grid stacks — text first, image below at `4/3` ratio.
 
 ---
 
