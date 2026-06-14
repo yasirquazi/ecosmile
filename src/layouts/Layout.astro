@@ -40,8 +40,36 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
           WhatsApp Us
         </a>
 
+        <!-- Hamburger — mobile only -->
+        <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" aria-hidden="true">
+            <rect width="20" height="2" rx="1" fill="currentColor"/>
+            <rect y="7" width="20" height="2" rx="1" fill="currentColor"/>
+            <rect y="14" width="20" height="2" rx="1" fill="currentColor"/>
+          </svg>
+        </button>
+
       </nav>
     </header>
+
+    <!-- Mobile full-screen menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <button class="mobile-menu-close" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M2 2L18 18M18 2L2 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <nav class="mobile-menu-nav">
+        <ul role="list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        <a href="https://wa.me/918123679864" target="_blank" rel="noopener noreferrer" class="mobile-cta">
+          WhatsApp Us
+        </a>
+      </nav>
+    </div>
 
     <main>
       <slot />
@@ -75,6 +103,33 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
 
   </body>
 </html>
+
+<script is:inline>
+  (function () {
+    const hamburger = document.querySelector('.hamburger');
+    const menu      = document.getElementById('mobile-menu');
+    const closeBtn  = document.querySelector('.mobile-menu-close');
+    const links     = menu.querySelectorAll('a');
+
+    function openMenu() {
+      menu.classList.add('is-open');
+      menu.setAttribute('aria-hidden', 'false');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      menu.classList.remove('is-open');
+      menu.setAttribute('aria-hidden', 'true');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    links.forEach(function (link) { link.addEventListener('click', closeMenu); });
+  })();
+</script>
 
 <style>
   /* ── Floating pill nav ── */
@@ -145,11 +200,20 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
     flex-shrink: 0;
   }
 
-  .btn-nav:hover {
-    background-color: var(--color-mid);
+  .btn-nav:hover { background-color: var(--color-mid); }
+
+  /* ── Hamburger — hidden on desktop ── */
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-ink);
+    padding: 0.5rem;
+    flex-shrink: 0;
   }
 
-  /* ── Mobile: pill stretches edge-to-edge with side margin ── */
+  /* ── Mobile overrides ── */
   @media (max-width: 640px) {
     .site-header {
       left: 1rem;
@@ -157,10 +221,81 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
       max-width: none;
     }
 
-    .nav-links {
-      display: none;
-    }
+    .nav-links,
+    .btn-nav    { display: none; }
+    .hamburger  { display: flex; align-items: center; justify-content: center; }
   }
+
+  /* ── Mobile full-screen menu ── */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background-color: var(--color-canvas);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-ink);
+    padding: 0.5rem;
+  }
+
+  .mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .mobile-menu-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mobile-menu-nav ul a {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .mobile-menu-nav ul a:hover { color: var(--color-forest); }
+
+  .mobile-cta {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-canvas);
+    background-color: var(--color-forest);
+    text-decoration: none;
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius-pill);
+    transition: background-color 150ms ease;
+  }
+
+  .mobile-cta:hover { background-color: var(--color-mid); }
 
   /* ── Footer ── */
   .site-footer {
@@ -204,9 +339,7 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
     transition: color 180ms ease;
   }
 
-  .footer-links a:hover {
-    color: var(--color-forest);
-  }
+  .footer-links a:hover { color: var(--color-forest); }
 
   .footer-contact p {
     font-size: 0.75rem;
@@ -214,9 +347,7 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
     line-height: 1.8;
   }
 
-  .footer-partner strong {
-    color: var(--color-forest);
-  }
+  .footer-partner strong { color: var(--color-forest); }
 
   .footer-base {
     border-top: 1px solid var(--color-rule-soft);
