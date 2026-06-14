@@ -1,11 +1,8 @@
 ---
-import Badge from '@/components/ui/Badge.astro';
-
 interface Service {
-  badge: 'PRIMARY' | 'SECONDARY';
   title: string;
   body: string;
-  audience: string;
+  audience: string[];
   model: string;
 }
 
@@ -20,19 +17,24 @@ const { eyebrow, heading, services } = Astro.props;
 
 <section class="services">
   <div class="container-es">
-    {eyebrow && <span class="eyebrow" style="display:block; margin-bottom: 0.875rem;">{eyebrow}</span>}
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
     <h2 class="services-heading">{heading}</h2>
     <div class="services-grid">
       {services.map(s => (
         <article class="service-card">
-          <div class="card-top">
-            <Badge type={s.badge} />
-            <h3 class="card-title">{s.title}</h3>
-            <p class="card-body">{s.body}</p>
-          </div>
-          <div class="card-meta">
-            <p class="meta-row"><span class="meta-label">For</span>{s.audience}</p>
-            <p class="meta-row"><span class="meta-label">Model</span>{s.model}</p>
+          <div class="card-color-block" aria-hidden="true"></div>
+          <div class="card-content">
+            <div class="card-top">
+              <h3 class="card-title">{s.title}</h3>
+              <p class="card-body">{s.body}</p>
+            </div>
+            <div class="card-meta">
+              <span class="meta-label">For</span>
+              <div class="audience-pills">
+                {s.audience.map(a => <span class="audience-pill">{a}</span>)}
+              </div>
+              <p class="model-text">{s.model}</p>
+            </div>
           </div>
         </article>
       ))}
@@ -57,73 +59,108 @@ const { eyebrow, heading, services } = Astro.props;
     margin-bottom: 3rem;
   }
 
-  /* ── Grid ── */
+  /* ── Grid: 1 col → 2 col → 4 col ── */
   .services-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.25rem;
   }
-  @media (min-width: 640px) {
-    .services-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (min-width: 1024px) {
-    .services-grid { gap: 1.5rem; }
-  }
+  @media (min-width: 640px)  { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .services-grid { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; } }
 
   /* ── Card ── */
   .service-card {
     background-color: var(--color-card);
     border: 1px solid var(--color-rule-soft);
-    border-radius: var(--radius);
-    padding: 1.75rem;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 200ms ease, border-color 200ms ease;
+  }
+  .service-card:hover {
+    border-color: var(--color-rule);
+    box-shadow: 0 4px 16px rgba(10, 20, 10, 0.07);
+  }
+
+  /* ── Colour block on top of each card ── */
+  .card-color-block {
+    height: 140px;
+    flex-shrink: 0;
+  }
+  .service-card:nth-child(1) .card-color-block { background-color: var(--color-forest); }
+  .service-card:nth-child(2) .card-color-block { background-color: var(--color-mid); }
+  .service-card:nth-child(3) .card-color-block { background-color: var(--color-earth); }
+  .service-card:nth-child(4) .card-color-block { background-color: var(--color-gold); }
+
+  /* ── Card content ── */
+  .card-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
+    padding: 1.5rem;
     gap: 1.5rem;
-    transition: border-color 180ms ease;
   }
-  .service-card:hover { border-color: var(--color-rule); }
 
-  .card-top { display: flex; flex-direction: column; gap: 0.875rem; }
+  .card-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 
   .card-title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 500;
     color: var(--color-ink);
     line-height: 1.2;
   }
 
   .card-body {
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 1.7;
     color: var(--color-ink-soft);
   }
 
-  /* ── Meta ── */
+  /* ── Meta footer ── */
   .card-meta {
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
+    gap: 0.5rem;
     padding-top: 1.25rem;
     border-top: 1px solid var(--color-rule-soft);
   }
 
-  .meta-row {
-    font-size: 0.75rem;
-    color: var(--color-ink-soft);
-    display: flex;
-    gap: 0.5rem;
-    line-height: 1.5;
-  }
-
   .meta-label {
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--color-forest);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Audience pills ── */
+  .audience-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .audience-pill {
     font-size: 0.75rem;
-    flex-shrink: 0;
-    padding-top: 0.15rem;
+    color: var(--color-forest);
+    background-color: var(--color-canvas);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-pill);
+    padding: 0.25rem 0.625rem;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .model-text {
+    font-size: 0.75rem;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
   }
 </style>

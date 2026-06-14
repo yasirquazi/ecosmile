@@ -48,34 +48,30 @@ const solution = {
 // Section 4 — Services
 // ─────────────────────────────────────────
 const serviceGrid = {
-  heading: 'Four ways to work with us.',
+  heading: 'How you can work with us.',
   services: [
     {
-      badge: 'PRIMARY' as const,
       title: 'Donate & ReShare',
       body: 'Your cupboard holds years of useful items. We come to your door and take them off your hands — clothes, shoes, furniture, books, utensils, toys — then get them to families through Project Smile Trust. Nothing sits in a warehouse. Nothing goes to waste.',
-      audience: 'Individuals and households with unused items in Bangalore.',
+      audience: ['Individuals', 'Households'],
       model: 'Purely donation-based. No charges for pickup.',
     },
     {
-      badge: 'PRIMARY' as const,
       title: 'Composting as a Service',
       body: 'Stay BBMP-compliant without managing composting yourself. We set up the system, train your team, and run the entire process. You get full compliance documentation. You do nothing except let us in.',
-      audience: 'Apartment complexes and Resident Welfare Associations (RWAs).',
+      audience: ['Apartment complexes', 'RWAs'],
       model: 'Service contract. Monthly management. No upfront investment.',
     },
     {
-      badge: 'PRIMARY' as const,
       title: 'Waste 2 Wealth',
       body: 'Your dry waste is worth money. We visit monthly, weigh your collected materials, and pay you per kilogram. Cash out or donate the amount to an NGO. Either way, nothing goes to a landfill.',
-      audience: 'Schools, colleges, and educational institutions in Bangalore.',
+      audience: ['Schools', 'Colleges', 'Educational institutions'],
       model: 'Revenue-generating for the institution. No upfront cost.',
     },
     {
-      badge: 'SECONDARY' as const,
       title: 'Event Waste Management',
       body: 'Running a conference, festival, or gathering in Bangalore? We handle waste before, during, and after — eco-friendly bins placed throughout the venue, and a clear plan for everything collected.',
-      audience: 'Event organisers, corporates, institutions running large gatherings.',
+      audience: ['Event organisers', 'Corporates', 'Institutions'],
       model: 'Per-event service contract.',
     },
   ],

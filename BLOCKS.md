@@ -66,20 +66,20 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
 ---
 
 ### `ServiceGrid`
-- **Purpose:** Grid of service cards — 3 primary + 1 secondary at launch. Each card shows a badge, title, body, audience, and business model.
+- **Purpose:** 4-column card grid for services. Each card has a colour-block header (auto-assigned per nth-child), title, body, and a "For" pill row with a model line below.
 - **Hydration:** none
 - **Props:**
   ```ts
   eyebrow?: string
   heading: string
   services: Array<{
-    badge: 'PRIMARY' | 'SECONDARY'
     title: string
     body: string
-    audience: string
-    model: string
+    audience: string[]   // each item becomes a pill under the "For" label
+    model: string        // rendered as small soft text below the pills
   }>
   ```
+- **Notes:** Card top colours cycle through `--color-forest → --color-mid → --color-earth → --color-gold` via nth-child — no colour prop needed. Grid collapses to 2 cols at ≤1023px and 1 col at ≤639px.
 
 ---
 
