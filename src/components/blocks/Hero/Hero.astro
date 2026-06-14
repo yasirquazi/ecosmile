@@ -3,39 +3,54 @@ interface Props {
   headline: string;
   sub: string;
   cta: { label: string; href: string };
-  riskNote: string;
-  trustBar: string;
 }
 
-const { headline, sub, cta, riskNote, trustBar } = Astro.props;
+const { headline, sub, cta } = Astro.props;
 ---
 
 <section class="hero">
-  <div class="container-es">
-
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="container-es hero-content">
     <h1 class="hero-headline">{headline}</h1>
-
-    <div class="hero-bottom">
-      <p class="hero-sub">{sub}</p>
-      <div class="hero-actions">
-        <a href={cta.href} class="hero-cta" target="_blank" rel="noopener noreferrer">
-          {cta.label}
-        </a>
-        <p class="risk-note">{riskNote}</p>
-      </div>
-    </div>
-
-    <div class="trust-bar">
-      <p class="trust-text">{trustBar}</p>
-    </div>
-
+    <p class="hero-sub">{sub}</p>
+    <a href={cta.href} class="hero-cta" target="_blank" rel="noopener noreferrer">
+      {cta.label}
+    </a>
   </div>
 </section>
 
 <style>
   .hero {
-    background-color: var(--color-forest);
-    padding-top: var(--section-pad-y);
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: url('/images/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 25%,
+      var(--scrim-mid) 60%,
+      var(--scrim-dark) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
     padding-bottom: var(--section-pad-y);
   }
 
@@ -43,32 +58,18 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
     font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(2.25rem, 5.5vw, 4.5rem);
     font-weight: 500;
-    line-height: 1.05;
+    line-height: 1.08;
     letter-spacing: -0.02em;
     color: var(--color-canvas);
     font-variation-settings: 'opsz' 80;
-    margin-bottom: clamp(4rem, 10vw, 7rem);
-  }
-
-  .hero-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 640px;
+    max-width: 18ch;
   }
 
   .hero-sub {
     font-size: 1.25rem;
     line-height: 1.7;
     color: var(--color-rule-soft);
-    max-width: 52ch;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
+    max-width: 48ch;
   }
 
   .hero-cta {
@@ -83,24 +84,4 @@ const { headline, sub, cta, riskNote, trustBar } = Astro.props;
     transition: background-color 180ms ease;
   }
   .hero-cta:hover { background-color: var(--color-card); }
-
-  .risk-note {
-    font-size: 0.75rem;
-    color: var(--color-rule);
-    letter-spacing: 0.01em;
-  }
-
-  .trust-bar {
-    margin-top: 3rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--color-mid);
-  }
-
-  .trust-text {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--color-canvas);
-  }
 </style>

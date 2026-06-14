@@ -28,7 +28,7 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
           <!-- Wordmark -->
           <a href="/" class="wordmark" aria-label="Eco Smile — Home">
             <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <text x="0" y="24" font-family="Fraunces, Georgia, serif" font-size="20" font-weight="500" fill="var(--color-forest)">Eco Smile</text>
+              <text x="0" y="24" font-family="Fraunces, Georgia, serif" font-size="20" font-weight="500" fill="currentColor">Eco Smile</text>
             </svg>
           </a>
 
@@ -82,14 +82,39 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
   </body>
 </html>
 
+<script is:inline>
+  (function () {
+    const header = document.querySelector('.site-header');
+    const hero   = document.querySelector('.hero');
+    if (!header) return;
+    if (hero) {
+      new IntersectionObserver(
+        ([e]) => header.classList.toggle('site-header--scrolled', !e.isIntersecting),
+        { threshold: 0 }
+      ).observe(hero);
+    } else {
+      // Pages without a hero always show the solid nav
+      header.classList.add('site-header--scrolled');
+    }
+  })();
+</script>
+
 <style>
   /* ── Header ── */
   .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 50;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background-color 300ms ease, border-color 300ms ease;
+  }
+
+  .site-header--scrolled {
     background-color: var(--color-canvas);
-    border-bottom: 1px solid var(--color-rule);
+    border-bottom-color: var(--color-rule);
   }
 
   .nav-inner {
@@ -103,6 +128,12 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
   .wordmark {
     text-decoration: none;
     flex-shrink: 0;
+    color: var(--color-canvas);
+    transition: color 300ms ease;
+  }
+
+  .site-header--scrolled .wordmark {
+    color: var(--color-forest);
   }
 
   .nav-links {
@@ -114,29 +145,46 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
   .nav-links a {
     font-size: 1rem;
     font-weight: 500;
-    color: var(--color-ink);
+    color: var(--color-canvas);
     text-decoration: none;
     letter-spacing: 0.01em;
-    transition: color 180ms ease;
+    transition: color 300ms ease;
+  }
+
+  .site-header--scrolled .nav-links a {
+    color: var(--color-ink);
   }
 
   .nav-links a:hover {
+    color: var(--color-rule-soft);
+  }
+
+  .site-header--scrolled .nav-links a:hover {
     color: var(--color-forest);
   }
 
   .btn-nav {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--color-canvas);
-    background-color: var(--color-forest);
+    color: var(--color-forest);
+    background-color: var(--color-canvas);
     text-decoration: none;
     padding: 0.5rem 1.5rem;
     border-radius: var(--radius-pill);
-    transition: background-color 180ms ease;
+    transition: background-color 300ms ease, color 300ms ease;
     white-space: nowrap;
   }
 
+  .site-header--scrolled .btn-nav {
+    color: var(--color-canvas);
+    background-color: var(--color-forest);
+  }
+
   .btn-nav:hover {
+    background-color: var(--color-card);
+  }
+
+  .site-header--scrolled .btn-nav:hover {
     background-color: var(--color-mid);
   }
 
