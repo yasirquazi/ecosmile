@@ -86,7 +86,7 @@ export default function FAQAccordion({ eyebrow, heading, items }: Props) {
                 <p style={{
                   paddingBottom: '1.375rem',
                   fontFamily: "'DM Sans', sans-serif",
-                  fontSize: '0.9375rem',
+                  fontSize: '1rem',
                   lineHeight: 1.75,
                   color: 'var(--color-ink-soft)',
                 }}>

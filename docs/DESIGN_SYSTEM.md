@@ -52,6 +52,8 @@ Gold is precious. It appears only as: (a) a deliberate emphasis on a key stat or
 - Headlines use negative letter-spacing (-0.01 to -0.02em). Body is neutral. Eyebrows use positive letter-spacing + uppercase — the only place text goes uppercase.
 - Fraunces at large sizes benefits from the optical size axis — set `font-variation-settings: 'opsz' 72` on hero-size text.
 - Italics: reserved for the brand tagline or pull-quotes only.
+- **4px font grid:** All font sizes must be multiples of 4px. Minimum is 12px. Round any non-conforming value to the nearest multiple (e.g. 17px → 16px, 15px → 16px, 13px → 12px, 11px → 12px, 18px → 20px). Valid sizes in common use: 12, 16, 20, 24, 28, 32, 36, 40px and the clamp display tokens.
+- **Headline line limit:** No headline (`h1`, `h2`, `h3`) may wrap to more than 3 lines at its intended viewport. If it wraps longer, either shorten the copy or reduce the font size to the next step down on the scale. Check at both mobile (375px) and desktop (1280px).
 
 ---
 

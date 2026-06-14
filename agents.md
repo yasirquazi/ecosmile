@@ -71,6 +71,8 @@ Copy goes here
 - Don't use fonts other than Fraunces and DM Sans.
 - Don't invent copy. Use the content brief verbatim.
 - Don't reference services or partnerships not in the Brand DNA document.
+- **Don't use font sizes that aren't multiples of 4px.** Valid values: 12, 16, 20, 24, 28, 32, 36, 40px (and the clamp display tokens). Minimum is 12px. Round non-conforming values to the nearest multiple — 13px → 12px, 15px → 16px, 17px → 16px, 18px → 20px, 22px → 24px.
+- **Don't let headlines wrap beyond 3 lines** at their intended viewport. If a heading wraps too long, reduce the copy length or drop to the next font-size step. Always verify at 375px (mobile) and 1280px (desktop).
 
 ---
 
