@@ -1,0 +1,126 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  steps: Step[];
+  cta: { label: string; href: string };
+  riskNote: string;
+}
+
+const { eyebrow, heading, steps, cta, riskNote } = Astro.props;
+---
+
+<section class="hiw">
+  <div class="container-es">
+    {eyebrow && <span class="eyebrow" style="display:block; margin-bottom: 0.875rem;">{eyebrow}</span>}
+    <h2 class="hiw-heading">{heading}</h2>
+
+    <div class="steps-grid">
+      {steps.map(step => (
+        <div class="step">
+          <span class="step-number">{step.number}</span>
+          <h3 class="step-title">{step.title}</h3>
+          <p class="step-body">{step.body}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="hiw-cta">
+      <a href={cta.href} class="btn-primary" target="_blank" rel="noopener noreferrer">
+        {cta.label}
+      </a>
+      <p class="risk-note">{riskNote}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hiw {
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
+    background-color: var(--color-card);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .hiw-heading {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.875rem, 4vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.016em;
+    color: var(--color-ink);
+    margin-bottom: 3rem;
+  }
+
+  /* ── Steps ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 640px)  { .steps-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .steps-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; } }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Gold step numbers — the ONE place the precious accent appears as a functional marker */
+  .step-number {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-gold);
+    font-variation-settings: 'opsz' 40;
+  }
+
+  .step-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.3;
+  }
+
+  .step-body {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+
+  /* ── CTA ── */
+  .hiw-cta {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-canvas);
+    background-color: var(--color-forest);
+    text-decoration: none;
+    padding: 0.875rem 1.875rem;
+    border-radius: var(--radius);
+    transition: background-color 180ms ease;
+  }
+  .btn-primary:hover { background-color: var(--color-mid); }
+
+  .risk-note {
+    font-size: 0.8125rem;
+    color: var(--color-ink-soft);
+  }
+</style>

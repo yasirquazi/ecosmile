@@ -1,0 +1,30 @@
+---
+interface Props {
+  type: 'PRIMARY' | 'SECONDARY';
+}
+const { type } = Astro.props;
+---
+<span class:list={["badge", type === 'PRIMARY' ? "badge--primary" : "badge--secondary"]}>
+  {type}
+</span>
+
+<style>
+  .badge {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+  .badge--primary {
+    background-color: var(--color-forest);
+    color: var(--color-canvas);
+  }
+  .badge--secondary {
+    background-color: var(--color-earth);
+    color: var(--color-canvas);
+  }
+</style>

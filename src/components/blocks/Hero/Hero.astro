@@ -1,0 +1,159 @@
+---
+import EyebrowLabel from '@/components/ui/EyebrowLabel.astro';
+
+interface Props {
+  headline: string;
+  sub: string;
+  cta: { label: string; href: string };
+  riskNote: string;
+  trustBar: string;
+}
+
+const { headline, sub, cta, riskNote, trustBar } = Astro.props;
+---
+
+<section class="hero">
+  <div class="container-es">
+    <div class="hero-grid">
+
+      <!-- Text column -->
+      <div class="hero-text">
+        <h1 class="hero-headline">{headline}</h1>
+        <p class="hero-sub">{sub}</p>
+        <div class="hero-actions">
+          <a href={cta.href} class="hero-cta" target="_blank" rel="noopener noreferrer">
+            {cta.label}
+          </a>
+          <p class="risk-note">{riskNote}</p>
+        </div>
+      </div>
+
+      <!-- Image column — placeholder until real photos arrive -->
+      <div class="hero-image" aria-hidden="true">
+        <div class="img-placeholder">
+          <span class="img-label">Hero Image</span>
+          <span class="img-hint">Pickup scene or sorted donation items</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Trust bar -->
+    <div class="trust-bar">
+      <p class="trust-text">{trustBar}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: var(--section-pad-y);
+    padding-bottom: 0;
+  }
+
+  /* ── Grid ── */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1.15fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  /* ── Headline ── */
+  .hero-headline {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.75rem, 7vw, 5.25rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    font-variation-settings: 'opsz' 80;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-sub {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    max-width: 52ch;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── CTA ── */
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-canvas);
+    background-color: var(--color-forest);
+    text-decoration: none;
+    padding: 0.875rem 1.875rem;
+    border-radius: var(--radius);
+    transition: background-color 180ms ease;
+  }
+  .hero-cta:hover { background-color: var(--color-mid); }
+
+  .risk-note {
+    font-size: 0.8125rem;
+    color: var(--color-ink-soft);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Image placeholder ── */
+  .img-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: var(--color-card);
+    border: 1px dashed var(--color-rule);
+    border-radius: calc(var(--radius) * 2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .img-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .img-hint {
+    font-size: 0.75rem;
+    color: var(--color-rule);
+    max-width: 22ch;
+  }
+
+  /* ── Trust bar ── */
+  .trust-bar {
+    margin-top: 4rem;
+    padding: 1.125rem 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .trust-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-forest);
+  }
+</style>

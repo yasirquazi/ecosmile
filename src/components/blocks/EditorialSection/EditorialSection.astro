@@ -1,0 +1,77 @@
+---
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  body: string | string[];
+  headingColor?: 'ink' | 'forest';
+  background?: 'canvas' | 'card';
+}
+
+const {
+  eyebrow,
+  heading,
+  body,
+  headingColor = 'ink',
+  background = 'canvas',
+} = Astro.props;
+
+const paragraphs = Array.isArray(body) ? body : [body];
+---
+
+<section class:list={["editorial", { "editorial--card": background === 'card' }]}>
+  <div class="container-es">
+    <div class="editorial-inner">
+      {eyebrow && <span class="eyebrow" style="display:block; margin-bottom: 0.875rem;">{eyebrow}</span>}
+      <h2 class:list={["editorial-heading", { "editorial-heading--forest": headingColor === 'forest' }]}>
+        {heading}
+      </h2>
+      <div class="editorial-body">
+        {paragraphs.map(p => <p>{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .editorial {
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
+    background-color: var(--color-canvas);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .editorial--card {
+    background-color: var(--color-card);
+  }
+
+  .editorial-inner {
+    max-width: 780px;
+  }
+
+  .editorial-heading {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.875rem, 4vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.016em;
+    color: var(--color-ink);
+    margin-bottom: 2rem;
+  }
+
+  /* The Solution section uses the brand tagline as its heading — forest green marks it as the "brand moment" */
+  .editorial-heading--forest {
+    color: var(--color-forest);
+  }
+
+  .editorial-body p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--color-ink-soft);
+    max-width: 68ch;
+    margin-bottom: 1.25rem;
+  }
+
+  .editorial-body p:last-child {
+    margin-bottom: 0;
+  }
+</style>

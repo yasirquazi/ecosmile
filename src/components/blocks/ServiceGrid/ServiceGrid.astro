@@ -1,0 +1,130 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+
+interface Service {
+  badge: 'PRIMARY' | 'SECONDARY';
+  title: string;
+  body: string;
+  audience: string;
+  model: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  services: Service[];
+}
+
+const { eyebrow, heading, services } = Astro.props;
+---
+
+<section class="services">
+  <div class="container-es">
+    {eyebrow && <span class="eyebrow" style="display:block; margin-bottom: 0.875rem;">{eyebrow}</span>}
+    <h2 class="services-heading">{heading}</h2>
+    <div class="services-grid">
+      {services.map(s => (
+        <article class="service-card">
+          <div class="card-top">
+            <Badge type={s.badge} />
+            <h3 class="card-title">{s.title}</h3>
+            <p class="card-body">{s.body}</p>
+          </div>
+          <div class="card-meta">
+            <p class="meta-row"><span class="meta-label">For</span>{s.audience}</p>
+            <p class="meta-row"><span class="meta-label">Model</span>{s.model}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
+    background-color: var(--color-canvas);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .services-heading {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.875rem, 4vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.016em;
+    color: var(--color-ink);
+    margin-bottom: 3rem;
+  }
+
+  /* ── Grid ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 1024px) {
+    .services-grid { gap: 1.5rem; }
+  }
+
+  /* ── Card ── */
+  .service-card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-rule-soft);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    transition: border-color 180ms ease;
+  }
+  .service-card:hover { border-color: var(--color-rule); }
+
+  .card-top { display: flex; flex-direction: column; gap: 0.875rem; }
+
+  .card-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.375rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1.2;
+  }
+
+  .card-body {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+
+  /* ── Meta ── */
+  .card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-rule-soft);
+  }
+
+  .meta-row {
+    font-size: 0.8125rem;
+    color: var(--color-ink-soft);
+    display: flex;
+    gap: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .meta-label {
+    font-weight: 600;
+    color: var(--color-forest);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.6875rem;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+  }
+</style>

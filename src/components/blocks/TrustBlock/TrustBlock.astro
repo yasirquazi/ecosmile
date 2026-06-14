@@ -1,0 +1,56 @@
+---
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  body: string; // HTML accepted — use <strong> for partner names
+}
+
+const { eyebrow, heading, body } = Astro.props;
+---
+
+<section class="trust">
+  <div class="container-es">
+    <div class="trust-inner">
+      {eyebrow && <span class="eyebrow" style="display:block; margin-bottom: 0.875rem;">{eyebrow}</span>}
+      <h2 class="trust-heading">{heading}</h2>
+      <div class="trust-body" set:html={body} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust {
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
+    background-color: var(--color-canvas);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .trust-inner { max-width: 780px; }
+
+  .trust-heading {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.875rem, 4vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.016em;
+    color: var(--color-ink);
+    margin-bottom: 2rem;
+  }
+
+  .trust-body :global(p) {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--color-ink-soft);
+    max-width: 68ch;
+    margin-bottom: 1.25rem;
+  }
+
+  .trust-body :global(p:last-child) { margin-bottom: 0; }
+
+  /* Bold partner names render in forest green */
+  .trust-body :global(strong) {
+    font-weight: 600;
+    color: var(--color-forest);
+  }
+</style>
