@@ -20,16 +20,17 @@ The block components live under `src/components/blocks/<Block>/`. Each accepts o
 ## Block-by-block
 
 ### `Hero`
-- **Purpose:** Full-width opening section. Large headline, subheadline, primary CTA, risk minimiser text, trust bar.
+- **Purpose:** Full-viewport opening section. Background image with dark gradient scrim; headline + sub + CTA centred at the bottom. Nav is transparent over this section and gains its canvas background on scroll (handled by IntersectionObserver in `Layout.astro`).
 - **Hydration:** none (static)
 - **Props:**
   ```ts
-  headline: string
+  headline: string   // supports <br> for forced line breaks, rendered via set:html
   sub: string
   cta: { label: string; href: string }
-  riskNote: string
-  trustBar: string
   ```
+- **Background image:** swap `/public/images/hero-bg.png` — component always reads from that path.
+- **Gradient scrim:** two-stop overlay (`--scrim-mid` → `--scrim-dark`) defined in `globals.css`. Adjust there to tune contrast.
+- **Notes:** Uses `min-height: 100svh` (small viewport height unit — handles mobile browser chrome). Content sits at the bottom via `justify-content: flex-end` on the section flex container.
 
 ---
 
