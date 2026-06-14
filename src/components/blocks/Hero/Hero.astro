@@ -11,7 +11,7 @@ const { headline, sub, cta } = Astro.props;
 <section class="hero">
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="container-es hero-content">
-    <h1 class="hero-headline">{headline}</h1>
+    <h1 class="hero-headline" set:html={headline} />
     <p class="hero-sub">{sub}</p>
     <a href={cta.href} class="hero-cta" target="_blank" rel="noopener noreferrer">
       {cta.label}
