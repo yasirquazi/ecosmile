@@ -1,0 +1,220 @@
+---
+import '@/styles/globals.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Eco Smile picks up your unused items and gets them to Bangalore families who need them. Free pickup. No forms. WhatsApp us today.' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+
+    <!-- Site Navigation -->
+    <header class="site-header">
+      <div class="container-es">
+        <nav class="nav-inner">
+
+          <!-- Wordmark -->
+          <a href="/" class="wordmark" aria-label="Eco Smile — Home">
+            <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <text x="0" y="24" font-family="Fraunces, Georgia, serif" font-size="22" font-weight="500" fill="var(--color-forest)">Eco Smile</text>
+            </svg>
+          </a>
+
+          <!-- Primary Navigation -->
+          <ul class="nav-links" role="list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+
+          <!-- Nav CTA -->
+          <a href="https://wa.me/918123679864" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            WhatsApp Us
+          </a>
+
+        </nav>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container-es">
+        <hr class="section-rule" />
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <span class="wordmark-text">Eco Smile</span>
+            <p class="footer-tagline">What could be excess to you is essential to someone.</p>
+          </div>
+          <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+          </div>
+          <div class="footer-contact">
+            <p>+91 81236 79864</p>
+            <p>WhatsApp available · Bangalore</p>
+            <p class="footer-partner">In partnership with <strong>Project Smile Trust</strong></p>
+          </div>
+        </div>
+        <div class="footer-base">
+          <p>&copy; {new Date().getFullYear()} Eco Smile. Bangalore, India.</p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
+
+<style>
+  /* ── Header ── */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--color-canvas);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 2rem;
+  }
+
+  .wordmark {
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 180ms ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-forest);
+  }
+
+  .btn-nav {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-canvas);
+    background-color: var(--color-forest);
+    text-decoration: none;
+    padding: 0.5rem 1.125rem;
+    border-radius: var(--radius);
+    transition: background-color 180ms ease;
+    white-space: nowrap;
+  }
+
+  .btn-nav:hover {
+    background-color: var(--color-mid);
+  }
+
+  /* ── Footer ── */
+  .site-footer {
+    margin-top: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 3rem;
+    padding: 3rem 0 2rem;
+  }
+
+  .wordmark-text {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-forest);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    font-size: 0.875rem;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+    max-width: 28ch;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-links a {
+    font-size: 0.875rem;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-forest);
+  }
+
+  .footer-contact p {
+    font-size: 0.875rem;
+    color: var(--color-ink-soft);
+    line-height: 1.8;
+  }
+
+  .footer-partner strong {
+    color: var(--color-forest);
+  }
+
+  .footer-base {
+    border-top: 1px solid var(--color-rule-soft);
+    padding-top: 1.5rem;
+  }
+
+  .footer-base p {
+    font-size: 0.75rem;
+    color: var(--color-ink-soft);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .nav-links {
+      display: none;
+    }
+
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>
