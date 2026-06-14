@@ -1,11 +1,219 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/blocks/Hero/Hero.astro';
+import EditorialSection from '@/components/blocks/EditorialSection/EditorialSection.astro';
+import ServiceGrid from '@/components/blocks/ServiceGrid/ServiceGrid.astro';
+import HowItWorks from '@/components/blocks/HowItWorks/HowItWorks.astro';
+import TrustBlock from '@/components/blocks/TrustBlock/TrustBlock.astro';
+import FAQAccordion from '@/components/blocks/FAQAccordion/FAQAccordion.tsx';
+import AudienceCTA from '@/components/blocks/AudienceCTA/AudienceCTA.astro';
+
+// All CTAs go to WhatsApp — defined once so it's easy to update
+const WA = 'https://wa.me/918123679864';
+
+// ─────────────────────────────────────────
+// Section 1 — Hero
+// ─────────────────────────────────────────
+const hero = {
+  headline: 'Clear your home. Change a life. One WhatsApp message.',
+  sub: 'Eco Smile picks up your unused clothes, furniture, and household items and puts them directly into the hands of Bangalore families who need them. Free. No forms. No office visits.',
+  cta: { label: 'Book My Free Pickup →', href: WA },
+  riskNote: 'No charges · No conditions · WhatsApp only',
+  trustBar: 'In partnership with Project Smile Trust · Registered waste management company · Serving Bangalore',
+};
+
+// ─────────────────────────────────────────
+// Section 2 — Problem
+// ─────────────────────────────────────────
+const problem = {
+  heading: 'Most people want to donate. They just assume it\'s complicated.',
+  body: [
+    'Bangalore generates over 4,500 tonnes of waste every day. A lot of it is perfectly usable — clothes the kids outgrew, furniture from the last flat, kitchen items you\'ve been meaning to pass on for two years.',
+    'But donation drives feel like effort. Drop-off points are out of the way. NGOs have forms. Nobody has time.',
+    'So things sit. And eventually get thrown out.',
+    'Eco Smile was built to remove that friction entirely.',
+  ],
+};
+
+// ─────────────────────────────────────────
+// Section 3 — Solution
+// headingColor: 'forest' makes the brand tagline render in green —
+// the one section heading that uses the brand colour instead of ink.
+// ─────────────────────────────────────────
+const solution = {
+  heading: 'What could be excess to you is essential to someone.',
+  headingColor: 'forest' as const,
+  body: [
+    'Eco Smile started with a simple observation: Bangalore has too much going to landfills and too many families without enough. The two problems are connected. So we built a service to connect them.',
+    'We collect from your door. We sort, clean, and where needed repair. Then Project Smile Trust — an NGO with verified distribution networks across Bangalore — gets those items to destitute families, homeless individuals, and communities that need them most.',
+    'That\'s the whole model. No middlemen. No mystery.',
+  ],
+};
+
+// ─────────────────────────────────────────
+// Section 4 — Services
+// ─────────────────────────────────────────
+const serviceGrid = {
+  heading: 'Four ways to work with us.',
+  services: [
+    {
+      badge: 'PRIMARY' as const,
+      title: 'Donate & ReShare',
+      body: 'Your cupboard holds years of useful items. We come to your door and take them off your hands — clothes, shoes, furniture, books, utensils, toys — then get them to families through Project Smile Trust. Nothing sits in a warehouse. Nothing goes to waste.',
+      audience: 'Individuals and households with unused items in Bangalore.',
+      model: 'Purely donation-based. No charges for pickup.',
+    },
+    {
+      badge: 'PRIMARY' as const,
+      title: 'Composting as a Service',
+      body: 'Stay BBMP-compliant without managing composting yourself. We set up the system, train your team, and run the entire process. You get full compliance documentation. You do nothing except let us in.',
+      audience: 'Apartment complexes and Resident Welfare Associations (RWAs).',
+      model: 'Service contract. Monthly management. No upfront investment.',
+    },
+    {
+      badge: 'PRIMARY' as const,
+      title: 'Waste 2 Wealth',
+      body: 'Your dry waste is worth money. We visit monthly, weigh your collected materials, and pay you per kilogram. Cash out or donate the amount to an NGO. Either way, nothing goes to a landfill.',
+      audience: 'Schools, colleges, and educational institutions in Bangalore.',
+      model: 'Revenue-generating for the institution. No upfront cost.',
+    },
+    {
+      badge: 'SECONDARY' as const,
+      title: 'Event Waste Management',
+      body: 'Running a conference, festival, or gathering in Bangalore? We handle waste before, during, and after — eco-friendly bins placed throughout the venue, and a clear plan for everything collected.',
+      audience: 'Event organisers, corporates, institutions running large gatherings.',
+      model: 'Per-event service contract.',
+    },
+  ],
+};
+
+// ─────────────────────────────────────────
+// Section 5 — How It Works
+// ─────────────────────────────────────────
+const howItWorks = {
+  heading: 'Four steps. You only do the first one.',
+  steps: [
+    {
+      number: '01',
+      title: 'Message us',
+      body: 'One WhatsApp. Tell us what you have and where you are in Bangalore. That\'s it.',
+    },
+    {
+      number: '02',
+      title: 'We come to you',
+      body: 'We arrange the pickup at a time that works. Free. No minimum quantity.',
+    },
+    {
+      number: '03',
+      title: 'We sort everything',
+      body: 'Clothes are checked and cleaned. Furniture is assessed. What needs a small repair, we fix. Nothing usable gets thrown away.',
+    },
+    {
+      number: '04',
+      title: 'It reaches someone who needs it',
+      body: "Project Smile Trust's verified networks get items to families and individuals across Bangalore. Your donation doesn't disappear into a black hole.",
+    },
+  ],
+  cta: { label: 'Schedule My Pickup →', href: WA },
+  riskNote: 'No charges. We come to you.',
+};
+
+// ─────────────────────────────────────────
+// Section 6 — Trust / Credibility
+// Partner names are <strong> so TrustBlock renders them in forest green
+// ─────────────────────────────────────────
+const trust = {
+  heading: "We're new. Here's what we can already show you.",
+  body: `
+    <p>Most organisations in this space spent years building quietly before anyone noticed. We're at the start of that in Bangalore. What we can't yet offer in scale, we make up for in accountability.</p>
+    <p>Our distribution runs through <strong>Project Smile Trust</strong>, an established NGO with verified reach across Bangalore's destitute communities. We handle collection and logistics; they handle placement. Every batch is tracked through their system.</p>
+    <p>Our composting work is built around <strong>BBMP's bulk waste mandate</strong> — so apartment clients are always on the right side of the regulations.</p>
+    <p>And we're part of the <strong>Bangalore Homeless Project</strong> — a joint initiative to provide hygiene solutions for the city's homeless population.</p>
+    <p>These aren't aspirational partnerships. They're working relationships.</p>
+  `,
+};
+
+// ─────────────────────────────────────────
+// Section 7 — FAQ
+// ─────────────────────────────────────────
+const faq = {
+  heading: 'Common questions.',
+  items: [
+    {
+      question: 'What items do you accept?',
+      answer: 'Clothes, shoes, books, toys, kitchen utensils, small furniture, and general household items in usable condition. If something is broken beyond repair or heavily soiled, reach out anyway and we\'ll let you know.',
+    },
+    {
+      question: 'Do you charge for pickup?',
+      answer: 'No. Pickup is completely free. This is a purely donation-based service.',
+    },
+    {
+      question: "I'm not comfortable with strangers going through my belongings.",
+      answer: "Completely fair. You hand us bags, boxes, or wrapped items — you control what we see. We don't enter rooms or rummage through storage. You bring it to us at the door, or set it aside in advance. We take it from there.",
+    },
+    {
+      question: 'How do I know my items actually reached someone?',
+      answer: "We work with Project Smile Trust, who have verified distribution networks. We're working on sharing WhatsApp updates once your batch has been distributed. As we grow, this transparency will only improve.",
+    },
+    {
+      question: 'I have a large volume of items. Can you handle that?',
+      answer: "Yes. Whether it's a bag of clothes or a full room of furniture, reach out and we'll figure out the logistics together.",
+    },
+    {
+      question: 'My apartment needs BBMP composting compliance. Can you help?',
+      answer: "That's exactly what our Composting as a Service is built for. We handle setup, training, and day-to-day management. WhatsApp us to get started.",
+    },
+    {
+      question: 'How does Waste 2 Wealth work for schools?',
+      answer: 'We visit monthly, collect segregated dry waste, weigh it, and pay based on volume. You decide: cash or a donation to an NGO partner.',
+    },
+    {
+      question: 'Are you a registered organisation?',
+      answer: 'Yes. Eco Smile is a registered waste management company operating in Bangalore, and part of the BBMP-mandated Bangalore Homeless Project through Project Smile Trust.',
+    },
+  ],
+};
+
+// ─────────────────────────────────────────
+// Section 8 — Final CTA
+// ─────────────────────────────────────────
+const audienceCTA = {
+  heading: 'One action. Pick yours.',
+  blocks: [
+    {
+      audience: 'For individuals & households',
+      copy: 'You have items sitting at home that someone in Bangalore could use today. One WhatsApp message starts the whole process.',
+      cta: { label: 'Book My Free Pickup →', href: WA },
+      riskNote: 'No charges. We come to you.',
+    },
+    {
+      audience: 'For apartment complexes & RWAs',
+      copy: 'BBMP compliance without the headache. We run the composting — setup, training, management. You stay compliant.',
+      cta: { label: 'Get Composting Info →', href: WA },
+      riskNote: "We'll explain how it works in five minutes.",
+    },
+    {
+      audience: 'For schools & colleges',
+      copy: 'Your dry waste earns money. We collect monthly, weigh everything, and pay you — or donate on your behalf.',
+      cta: { label: 'Join Waste 2 Wealth →', href: WA },
+      riskNote: 'No upfront cost.',
+    },
+  ],
+  closing: "Bangalore throws away too much. You don't have to be part of that.",
+  contact: '+91 81236 79864 · WhatsApp available · Bangalore',
+};
 ---
 
-<Layout title="Eco Smile | Waste Management & Donation Pickup — Bangalore">
-  <!-- Sections will be assembled here in Phase 2 -->
-  <div style="padding: 8rem 2rem; text-align: center; color: var(--color-ink-soft); font-family: 'DM Sans', sans-serif;">
-    <p style="font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase;">Phase 1 — Foundation complete</p>
-    <p style="margin-top: 0.5rem; font-size: 1.5rem; font-family: 'Fraunces', serif; color: var(--color-forest);">Eco Smile</p>
-  </div>
+<Layout
+  title="Eco Smile | Waste Management & Donation Pickup — Bangalore"
+  description="Eco Smile picks up your unused items from your door and gets them to Bangalore families who need them. Free pickup. No forms. WhatsApp us today."
+>
+  <Hero {...hero} />
+  <EditorialSection {...problem} />
+  <EditorialSection {...solution} />
+  <ServiceGrid {...serviceGrid} />
+  <HowItWorks {...howItWorks} />
+  <TrustBlock {...trust} />
+  <FAQAccordion client:visible {...faq} />
+  <AudienceCTA {...audienceCTA} />
 </Layout>
