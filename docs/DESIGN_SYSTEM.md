@@ -8,7 +8,7 @@
 
 | Token | Hex | Role |
 |---|---|---|
-| `--color-canvas` | `#F4F8F4` | Page background — pale sage-white. Never pure white. |
+| `--color-canvas` | `#F9F6F1` | Page background — warm off-white. Never pure white. |
 | `--color-surface` | `#FCFDFC` | Near-white surface — service cards and elevated panels |
 | `--color-card` | `#EAF5EC` | Card / panel background — Chalk White from brand palette |
 | `--color-forest` | `#2E6B3E` | Primary brand green — headlines, nav, eyebrows, borders |

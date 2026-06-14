@@ -37,11 +37,7 @@ const problem = {
 const solution = {
   heading: 'What could be excess to you is essential to someone.',
   headingColor: 'forest' as const,
-  body: [
-    'Eco Smile started with a simple observation: Bangalore has too much going to landfills and too many families without enough. The two problems are connected. So we built a service to connect them.',
-    'We collect from your door. We sort, clean, and where needed repair. Then Project Smile Trust — an NGO with verified distribution networks across Bangalore — gets those items to destitute families, homeless individuals, and communities that need them most.',
-    'That\'s the whole model. No middlemen. No mystery.',
-  ],
+  body: 'Eco Smile started with a simple observation: Bangalore has too much going to landfills and too many families without enough. We collect from your door, sort, clean, and where needed repair — then Project Smile Trust gets those items to destitute families and communities across Bangalore. No middlemen. No mystery.',
 };
 
 // ─────────────────────────────────────────
@@ -209,12 +205,10 @@ const audienceCTA = {
 
   <SplitSection
     heading={solution.heading}
-    headingColor={solution.headingColor}
     body={solution.body}
     imageSrc="/images/donation-pickup.png"
     imageAlt="Sorted donation items ready for families"
     imagePosition="left"
-    background="card"
   />
   <ServiceGrid {...serviceGrid} />
   <HowItWorks {...howItWorks} />
