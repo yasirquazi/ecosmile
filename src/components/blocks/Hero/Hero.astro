@@ -34,12 +34,7 @@ const { headline, sub, cta } = Astro.props;
   .hero-scrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      transparent 25%,
-      var(--scrim-mid) 60%,
-      var(--scrim-dark) 100%
-    );
+    background: rgba(10, 20, 10, 0.35);
     pointer-events: none;
   }
 
@@ -67,7 +62,7 @@ const { headline, sub, cta } = Astro.props;
   .hero-sub {
     font-size: 1.25rem;
     line-height: 1.7;
-    color: var(--color-rule-soft);
+    color: var(--color-canvas);
     max-width: 48ch;
   }
 
