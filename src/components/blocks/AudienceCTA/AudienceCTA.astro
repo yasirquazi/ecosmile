@@ -1,19 +1,26 @@
 ---
+/* Phosphor icon SVG paths — inlined to avoid external font/script dependencies */
+const ICONS: Record<string, string> = {
+  'users-three': `<path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/>`,
+  'buildings': `<path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/>`,
+  'graduation-cap': `<path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/>`,
+};
+
+const ARROW_RIGHT = `<path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/>`;
+
 interface CTABlock {
+  icon: string;
   audience: string;
   copy: string;
   cta: { label: string; href: string };
-  riskNote: string;
 }
 
 interface Props {
   heading: string;
   blocks: CTABlock[];
-  closing: string;
-  contact: string;
 }
 
-const { heading, blocks, closing, contact } = Astro.props;
+const { heading, blocks } = Astro.props;
 ---
 
 <section class="audience-cta">
@@ -22,24 +29,43 @@ const { heading, blocks, closing, contact } = Astro.props;
 
     <div class="cta-grid">
       {blocks.map(b => (
-        <div class="cta-block">
-          <span class="cta-audience">{b.audience}</span>
-          <p class="cta-copy">{b.copy}</p>
-          <div class="cta-actions">
-            <a href={b.cta.href} class="cta-btn" target="_blank" rel="noopener noreferrer">
-              {b.cta.label}
-            </a>
-            <p class="cta-risk">{b.riskNote}</p>
+        <div class="cta-card">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 256"
+            fill="currentColor"
+            class="card-icon"
+            aria-hidden="true"
+          >
+            <Fragment set:html={ICONS[b.icon] ?? ''} />
+          </svg>
+
+          <div class="card-content">
+            <h3 class="card-heading">{b.audience}</h3>
+            <p class="card-body">{b.copy}</p>
           </div>
+
+          <a
+            href={b.cta.href}
+            class="btn-line"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {b.cta.label}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 256 256"
+              fill="currentColor"
+              class="arrow-icon"
+              aria-hidden="true"
+            >
+              <Fragment set:html={ARROW_RIGHT} />
+            </svg>
+          </a>
         </div>
       ))}
     </div>
 
-    <div class="cta-footer">
-      <hr class="cta-rule" />
-      <p class="closing-line">{closing}</p>
-      <p class="contact-line">{contact}</p>
-    </div>
   </div>
 </section>
 
@@ -52,7 +78,7 @@ const { heading, blocks, closing, contact } = Astro.props;
 
   .cta-heading {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.875rem, 4vw, 3.25rem);
+    font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: 500;
     line-height: 1.12;
     letter-spacing: -0.016em;
@@ -60,92 +86,79 @@ const { heading, blocks, closing, contact } = Astro.props;
     margin-bottom: 3rem;
   }
 
-  /* ── Grid ── */
+  /* ── Card grid ── */
   .cta-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1px;
-    background-color: rgba(234, 245, 236, 0.15); /* hairline between columns */
+    gap: 1.5rem;
   }
+
   @media (min-width: 768px) {
     .cta-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
-  .cta-block {
+  /* ── Card ── */
+  .cta-card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    padding: 2rem;
-    background-color: var(--color-forest);
+    gap: 1rem;
   }
 
-  .cta-audience {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .card-icon {
+    width: 3.5rem;
+    height: 3.5rem;
     color: var(--color-gold);
+    flex-shrink: 0;
   }
 
-  .cta-copy {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: rgba(234, 245, 236, 0.85);
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     flex: 1;
   }
 
-  .cta-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-  }
-
-  .cta-btn {
-    display: inline-block;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-forest);
-    background-color: var(--color-canvas);
-    text-decoration: none;
-    padding: 0.875rem 1.75rem;
-    border-radius: var(--radius-pill);
-    transition: background-color 180ms ease;
-    align-self: flex-start;
-  }
-  .cta-btn:hover { background-color: var(--color-card); }
-
-  .cta-risk {
-    font-size: 0.75rem;
-    color: rgba(234, 245, 236, 0.55);
-  }
-
-  /* ── Footer ── */
-  .cta-footer {
-    margin-top: 4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .cta-rule {
-    border: none;
-    border-top: 1px solid rgba(234, 245, 236, 0.2);
-    margin-bottom: 0.5rem;
-  }
-
-  .closing-line {
+  .card-heading {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--color-canvas);
-    opacity: 0.9;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-ink);
   }
 
-  .contact-line {
-    font-size: 0.75rem;
-    color: rgba(234, 245, 236, 0.6);
+  .card-body {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-ink-soft);
   }
+
+  /* ── Line Button (tertiary) ── */
+  .btn-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-ink);
+    padding-bottom: 0.25rem;
+    align-self: flex-start;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+
+  .btn-line:hover {
+    color: var(--color-forest);
+    border-color: var(--color-forest);
+  }
+
+  .arrow-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
 </style>

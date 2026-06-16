@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import IconButton from '@/components/ui/IconButton';
 
 interface FAQItem {
   question: string;
@@ -13,24 +14,23 @@ interface Props {
 
 export default function FAQAccordion({ eyebrow, heading, items }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
   return (
     <section style={{
       paddingTop: 'var(--section-pad-y)',
       paddingBottom: 'var(--section-pad-y)',
-      backgroundColor: 'var(--color-card)',
+      backgroundColor: 'var(--color-canvas)',
     }}>
       <div className="container-es">
         {eyebrow && (
-          <span className="eyebrow" style={{ display: 'block', marginBottom: '0.875rem' }}>
+          <span className="eyebrow" style={{ display: 'block', marginBottom: '1rem' }}>
             {eyebrow}
           </span>
         )}
         <h2 style={{
           fontFamily: "'Fraunces', Georgia, serif",
-          fontSize: 'clamp(1.875rem, 4vw, 3.25rem)',
+          fontSize: 'clamp(2rem, 4vw, 3.5rem)',
           fontWeight: 500,
           lineHeight: 1.12,
           letterSpacing: '-0.016em',
@@ -40,60 +40,66 @@ export default function FAQAccordion({ eyebrow, heading, items }: Props) {
           {heading}
         </h2>
 
-        <div style={{ maxWidth: '740px', borderTop: '1px solid var(--color-rule)' }}>
-          {items.map((item, i) => (
-            <div key={i} style={{ borderBottom: '1px solid var(--color-rule)' }}>
-              <button
-                onClick={() => toggle(i)}
-                aria-expanded={openIndex === i}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {items.map((item, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <div
+                key={i}
                 style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  gap: '1.5rem',
-                  padding: '1.25rem 0',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: '1rem',
-                  fontWeight: 500,
-                  color: 'var(--color-ink)',
+                  backgroundColor: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 'var(--radius-card)',
+                  padding: '1.5rem',
                 }}
               >
-                <span>{item.question}</span>
-                <span style={{
-                  width: '1.5rem',
-                  height: '1.5rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: '50%',
-                  border: '1px solid var(--color-rule)',
-                  flexShrink: 0,
-                  fontSize: '1.25rem',
-                  lineHeight: 1,
-                  color: 'var(--color-forest)',
-                  transition: 'border-color 180ms ease',
-                }}>
-                  {openIndex === i ? '−' : '+'}
-                </span>
-              </button>
-              {openIndex === i && (
-                <p style={{
-                  paddingBottom: '1.375rem',
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: '1rem',
-                  lineHeight: 1.75,
-                  color: 'var(--color-ink-soft)',
-                }}>
-                  {item.answer}
-                </p>
-              )}
-            </div>
-          ))}
+                {/* Heading row — the interactive trigger */}
+                <button
+                  onClick={() => toggle(i)}
+                  aria-expanded={isOpen}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: '2.5rem',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    padding: 0,
+                  }}
+                >
+                  <span style={{
+                    fontFamily: "'Fraunces', Georgia, serif",
+                    fontSize: '1.5rem',
+                    fontWeight: 400,
+                    lineHeight: 1.2,
+                    color: 'var(--color-ink)',
+                    flex: 1,
+                    minWidth: 0,
+                  }}>
+                    {item.question}
+                  </span>
+                  {/* Plus = open, Minus = closed — matches Figma state naming */}
+                  <IconButton icon={isOpen ? 'plus' : 'minus'} />
+                </button>
+
+                {/* Answer — visible when open */}
+                {isOpen && (
+                  <p style={{
+                    marginTop: '0.75rem',
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '1rem',
+                    lineHeight: 1.5,
+                    color: 'var(--color-ink-soft)',
+                  }}>
+                    {item.answer}
+                  </p>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

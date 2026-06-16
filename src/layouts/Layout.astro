@@ -77,28 +77,53 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
 
     <!-- Footer -->
     <footer class="site-footer">
+
+      <!-- Top row: brand + nav columns -->
       <div class="container-es">
-        <hr class="section-rule" />
-        <div class="footer-inner">
+        <div class="footer-top">
+
           <div class="footer-brand">
-            <span class="wordmark-text">Eco Smile</span>
-            <p class="footer-tagline">What could be excess to you is essential to someone.</p>
+            <span class="footer-wordmark">Eco Smile</span>
+            <p class="footer-partner">In partnership with<br><strong>Project Smile Trust</strong></p>
           </div>
-          <div class="footer-links">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-          </div>
-          <div class="footer-contact">
-            <p>+91 81236 79864</p>
-            <p>WhatsApp available · Bangalore</p>
-            <p class="footer-partner">In partnership with <strong>Project Smile Trust</strong></p>
-          </div>
+
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <div class="footer-col">
+              <span class="footer-col-label">Pages</span>
+              <a href="/">Home</a>
+              <a href="/about">About</a>
+              <a href="/contact">Contact</a>
+            </div>
+            <div class="footer-col">
+              <span class="footer-col-label">Services</span>
+              <a href="/">Donate & ReShare</a>
+              <a href="/">Composting</a>
+              <a href="/">Waste 2 Wealth</a>
+              <a href="/">Event Waste</a>
+            </div>
+            <div class="footer-col">
+              <span class="footer-col-label">Contact</span>
+              <a href="https://wa.me/918123679864" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+              <span>+91 81236 79864</span>
+              <span>Bangalore, India</span>
+            </div>
+          </nav>
+
         </div>
+      </div>
+
+      <!-- Big italic brand statement — full bleed -->
+      <p class="footer-statement">
+        Bangalore throws away too much.<br>You don't have to be part of that.
+      </p>
+
+      <!-- Copyright -->
+      <div class="container-es">
         <div class="footer-base">
           <p>&copy; {new Date().getFullYear()} Eco Smile. Bangalore, India.</p>
         </div>
       </div>
+
     </footer>
 
   </body>
@@ -299,56 +324,82 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
 
   /* ── Footer ── */
   .site-footer {
-    margin-top: 4rem;
+    background-color: var(--color-canvas);
+    border-top: 1px solid var(--color-rule-soft);
+    padding-top: 4rem;
     padding-bottom: 2rem;
   }
 
-  .footer-inner {
+  /* Top row */
+  .footer-top {
     display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr;
-    gap: 3rem;
-    padding: 3rem 0 2rem;
+    grid-template-columns: 1fr 2.5fr;
+    gap: 4rem;
+    padding-bottom: 3rem;
   }
 
-  .wordmark-text {
+  .footer-wordmark {
     font-family: 'Fraunces', Georgia, serif;
     font-size: 1.25rem;
     font-weight: 500;
     color: var(--color-forest);
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
-  .footer-tagline {
+  .footer-partner {
     font-size: 0.75rem;
     color: var(--color-ink-soft);
-    line-height: 1.5;
-    max-width: 28ch;
-  }
-
-  .footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .footer-links a {
-    font-size: 0.75rem;
-    color: var(--color-ink-soft);
-    text-decoration: none;
-    transition: color 180ms ease;
-  }
-
-  .footer-links a:hover { color: var(--color-forest); }
-
-  .footer-contact p {
-    font-size: 0.75rem;
-    color: var(--color-ink-soft);
-    line-height: 1.8;
+    line-height: 1.6;
   }
 
   .footer-partner strong { color: var(--color-forest); }
 
+  /* Nav columns */
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-col-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    margin-bottom: 1rem;
+  }
+
+  .footer-col a,
+  .footer-col span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    line-height: 2;
+    transition: color 150ms ease;
+  }
+
+  .footer-col a:hover { color: var(--color-forest); }
+
+  /* Big italic brand statement */
+  .footer-statement {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.5rem, 5.5vw, 6rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    font-variation-settings: 'opsz' 72;
+    padding: 2rem var(--container-pad) 3rem;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  /* Copyright */
   .footer-base {
     border-top: 1px solid var(--color-rule-soft);
     padding-top: 1.5rem;
@@ -359,10 +410,20 @@ const { title, description = 'Eco Smile picks up your unused items and gets them
     color: var(--color-ink-soft);
   }
 
-  @media (max-width: 640px) {
-    .footer-inner {
+  @media (max-width: 768px) {
+    .footer-top {
       grid-template-columns: 1fr;
       gap: 2rem;
+    }
+
+    .footer-nav {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-nav {
+      grid-template-columns: 1fr;
     }
   }
 </style>
